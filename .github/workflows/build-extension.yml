@@ -23,6 +23,12 @@ jobs:
       - name: Compile the extension
         run: npm run build
 
+      - name: Check the compiled node has the URL field
+        run: |
+          echo "Fields compiled into the node:"
+          grep -o 'key: "[a-zA-Z]*"' build/nodes/requestAccessToken.js
+          grep -q 'tokenUrl' build/nodes/requestAccessToken.js || { echo "tokenUrl is missing - the repo copy of src/nodes/requestAccessToken.js is an older version"; exit 1; }
+
       - name: Create the uploadable package
         run: tar -czf cxone-token-extension.tar.gz $(ls -d build package.json package-lock.json README.md icon.png 2>/dev/null) && tar -tzf cxone-token-extension.tar.gz
 
