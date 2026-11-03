@@ -38,6 +38,7 @@ export const requestAccessToken = createNodeDescriptor({
 			key: "tokenUrl",
 			label: "Token endpoint URL",
 			type: "cognigyText",
+			defaultValue: "",
 			params: {
 				required: true
 			}
